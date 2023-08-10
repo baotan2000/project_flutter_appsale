@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_appsale/page/home/widget/home.dart';
+import 'package:project_appsale/page/home/home.dart';
+import 'package:project_appsale/providers/category_provider.dart';
 import 'package:project_appsale/providers/slider_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +10,9 @@ void main(List<String> args) {
       providers: [
         ChangeNotifierProvider(
           create: (_) => SliderProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CategoryProvider(),
         ),
       ],
       child: MaterialApp(

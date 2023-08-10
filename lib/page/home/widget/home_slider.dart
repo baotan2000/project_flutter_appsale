@@ -33,7 +33,7 @@ class _HomeSliderState extends State<HomeSlider> {
             sliderData = asyncData.data! as List;
           } else {
             return Container(
-              child: Text("Error"),
+              child: Text(asyncData.error.toString()),
             );
           }
           return asyncData.hasData
