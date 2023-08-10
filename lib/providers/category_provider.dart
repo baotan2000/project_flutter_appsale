@@ -9,7 +9,7 @@ class CategoryProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse(url));
       final jsonData = jsonDecode(response.body);
-      print(jsonData);
+      // print(jsonData);
       List<Category> data = List<Category>.from(
           jsonData.map((cate) => Category.fromJson(jsonEncode(cate)))).toList();
       return data;
