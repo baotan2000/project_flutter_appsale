@@ -14,6 +14,28 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           HomeSlider(),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 80,
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              scrollDirection: Axis.horizontal,
+              itemCount: 14,
+              separatorBuilder: (context, index) {
+                return SizedBox(
+                  width: 10,
+                );
+              },
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 80,
+                  color: Colors.amber,
+                );
+              },
+            ),
+          )
         ],
       ),
     );
