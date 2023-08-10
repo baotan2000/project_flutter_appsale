@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:project_appsale/page/home/widget/home.dart';
 
 void main(List<String> args) {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyApp(),
+    initialRoute: HomePage.routerName,
+    routes: {
+      HomePage.routerName: (context) => HomePage(),
+    },
+    // home: MyApp(),
   ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child: Container()),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: SafeArea(child: Container()),
+//     );
+//   }
+// }
