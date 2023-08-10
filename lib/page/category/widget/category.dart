@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_appsale/page/category/widget/category_body.dart';
 
 class CategoryPage extends StatelessWidget {
   static const routerName = '/category';
@@ -12,6 +13,7 @@ class CategoryPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(arg["name"]),
       ),
+      body: CategoryBody(),
     );
   }
 }
