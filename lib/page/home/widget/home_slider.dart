@@ -28,7 +28,14 @@ class _HomeSliderState extends State<HomeSlider> {
         future: sliderFuture,
         initialData: [],
         builder: (context, asyncData) {
-          final sliderData = asyncData.data! as List;
+          var sliderData = [];
+          if (asyncData.hasData) {
+            sliderData = asyncData.data! as List;
+          } else {
+            return Container(
+              child: Text("Error"),
+            );
+          }
           return asyncData.hasData
               ? CarouselSlider(
                   options: CarouselOptions(
@@ -42,6 +49,7 @@ class _HomeSliderState extends State<HomeSlider> {
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.symmetric(horizontal: 5.0),
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(i.image),
