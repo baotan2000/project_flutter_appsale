@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_appsale/models/product_model.dart';
+import 'package:project_appsale/page/product/widget/product.dart';
 import 'package:project_appsale/providers/category_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -45,39 +46,47 @@ class _CategoryBodyState extends State<CategoryBody> {
           ),
           itemCount: data.length,
           itemBuilder: (BuildContext context, int index) {
-            return GridTile(
-              footer: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(20)),
-                child: GridTileBar(
-                  backgroundColor: Colors.black45,
-                  title: Text(data[index].name),
-                  subtitle: Column(
-                    children: [
-                      Text(data[index].summary),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        data[index].price.toString(),
-                        style: TextStyle(
-                          color: Colors.yellow,
-                          fontSize: 16,
+            return InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, ProductPage.routerName,
+                    arguments: {
+                      "data": data[index],
+                    });
+              },
+              child: GridTile(
+                footer: ClipRRect(
+                  borderRadius:
+                      const BorderRadius.vertical(bottom: Radius.circular(20)),
+                  child: GridTileBar(
+                    backgroundColor: Colors.black45,
+                    title: Text(data[index].name),
+                    subtitle: Column(
+                      children: [
+                        Text(data[index].summary),
+                        SizedBox(
+                          height: 4,
                         ),
-                      )
-                    ],
+                        Text(
+                          data[index].price.toString(),
+                          style: TextStyle(
+                            color: Colors.yellow,
+                            fontSize: 16,
+                          ),
+                        )
+                      ],
+                    ),
+                    trailing: const Icon(Icons.shopping_cart),
                   ),
-                  trailing: const Icon(Icons.shopping_cart),
                 ),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(data[index].image),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(data[index].image),
+                    ),
                   ),
                 ),
               ),
