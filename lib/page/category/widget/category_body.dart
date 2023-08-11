@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_appsale/models/product_model.dart';
+import 'package:project_appsale/providers/category_provider.dart';
+import 'package:provider/provider.dart';
 
 class CategoryBody extends StatefulWidget {
   const CategoryBody({super.key});
@@ -8,54 +11,78 @@ class CategoryBody extends StatefulWidget {
 }
 
 class _CategoryBodyState extends State<CategoryBody> {
+  late Future productIncategoryFuture;
+  @override
+  void didChangeDependencies() {
+    final Map<String, dynamic> arg =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    productIncategoryFuture =
+        Provider.of<CategoryProvider>(context).getProductCatgory(arg['id']);
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 3 / 4,
-      ),
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index) {
-        return GridTile(
-          footer: ClipRRect(
-            borderRadius:
-                const BorderRadius.vertical(bottom: Radius.circular(20)),
-            child: GridTileBar(
-              backgroundColor: Colors.black45,
-              title: const Text("Iphone 12"),
-              subtitle: Column(
-                children: const [
-                  Text("lam phuc bao tan dep trai vo doi"),
-                  SizedBox(
-                    height: 4,
+    return FutureBuilder(
+      initialData: [],
+      future: productIncategoryFuture,
+      builder: (context, asyncData) {
+        List data = [];
+        if (asyncData.hasData) {
+          data = asyncData.data as List;
+        } else {
+          return Container(
+            child: Text('err'),
+          );
+        }
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 3 / 4,
+          ),
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, int index) {
+            return GridTile(
+              footer: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(bottom: Radius.circular(20)),
+                child: GridTileBar(
+                  backgroundColor: Colors.black45,
+                  title: Text(data[index].name),
+                  subtitle: Column(
+                    children: [
+                      Text(data[index].summary),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        data[index].price.toString(),
+                        style: TextStyle(
+                          color: Colors.yellow,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
                   ),
-                  Text(
-                    "50.000 vnd",
-                    style: TextStyle(
-                      color: Colors.yellow,
-                      fontSize: 16,
-                    ),
-                  )
-                ],
+                  trailing: const Icon(Icons.shopping_cart),
+                ),
               ),
-              trailing: const Icon(Icons.shopping_cart),
-            ),
-          ),
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(data[index].image),
+                  ),
+                ),
               ),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    "https://images.unsplash.com/photo-1683997941376-d5bbecbcdae7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"),
-              ),
-            ),
-          ),
+            );
+          },
         );
       },
     );
