@@ -3,6 +3,7 @@ import 'package:project_appsale/const.dart';
 import 'package:project_appsale/page/auth/auth_page.dart';
 import 'package:project_appsale/page/home/widget/home_category.dart';
 import 'package:project_appsale/page/home/widget/home_slider.dart';
+import 'package:project_appsale/page/home/widget/list_product_special.dart';
 import 'package:project_appsale/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -103,9 +104,25 @@ class Home extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 10,
           ),
           const HomeCategory(),
+          SizedBox(height: 7),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Sản phẩm đặc biệt",
+                  style: fdCategory,
+                ),
+                Text("Tất cả (4)"),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          ListProductSpecial(),
         ],
       ),
     );
