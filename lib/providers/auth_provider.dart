@@ -44,9 +44,20 @@ class AuthProvider extends ChangeNotifier {
     _authentication(email, password, 'login');
   }
 
-  void logout() {
+  Future<void> logout() async {
     _token = '';
     _expires = 0;
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('userData');
+  }
+
+  Future<bool> autoLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('userData')) {
+      return false;
+    }
+    // final data = jsonDecode(prefs.getString('userData') ?? '');
+    return true;
   }
 }

@@ -14,7 +14,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, auth, child) {
-        return !auth.isAuth ? AuthPage() : Home();
+        return auth.isAuth
+            ? const Home()
+            : FutureBuilder(
+                future: auth.autoLogin(),
+                initialData: false,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return snapshot.data ? const Home() : AuthPage();
+                },
+              );
         // return !auth.isAuth ? Home() : AuthPage();
       },
     );
