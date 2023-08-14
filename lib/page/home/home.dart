@@ -14,7 +14,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, auth, child) {
-        return !auth.isAuth ? AuthPage() : Home();
+        // return !auth.isAuth ? AuthPage() : Home();
+        return !auth.isAuth ? Home() : AuthPage();
       },
     );
   }
@@ -28,8 +29,43 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Column(
+            children: [
+              SizedBox(
+                child: Image(
+                  width: 200,
+                  fit: BoxFit.contain,
+                  image: AssetImage('assets/logo/flutter-logo-sharing.png'),
+                ),
+              ),
+              SizedBox(
+                height: 500,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text("Home Page"),
+                        onTap: () {},
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.logout),
+                        title: Text("Logout"),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
-        title: Text("Home Page"),
+        title: Center(child: Text("Home Page")),
       ),
       body: Column(
         children: [
