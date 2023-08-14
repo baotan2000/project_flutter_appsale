@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AuthProvider extends ChangeNotifier {
-  String _token = "";
+  String _token = '';
   int _expires = 0;
 
   bool get isAuth {
@@ -37,5 +37,11 @@ class AuthProvider extends ChangeNotifier {
 
   void login(String email, String password) {
     _authentication(email, password, 'login');
+  }
+
+  void logout() {
+    _token = '';
+    _expires = 0;
+    notifyListeners();
   }
 }

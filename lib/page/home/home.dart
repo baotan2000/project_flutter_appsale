@@ -14,8 +14,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, auth, child) {
-        // return !auth.isAuth ? AuthPage() : Home();
-        return !auth.isAuth ? Home() : AuthPage();
+        return !auth.isAuth ? AuthPage() : Home();
+        // return !auth.isAuth ? Home() : AuthPage();
       },
     );
   }
@@ -54,7 +54,10 @@ class Home extends StatelessWidget {
                       ListTile(
                         leading: Icon(Icons.logout),
                         title: Text("Logout"),
-                        onTap: () {},
+                        onTap: () {
+                          Provider.of<AuthProvider>(context, listen: false)
+                              .logout();
+                        },
                       ),
                     ],
                   ),

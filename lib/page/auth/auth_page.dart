@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:project_appsale/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   static const routerName = '/auth';
   AuthPage({super.key});
 
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  bool _isObscure = true;
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -29,28 +36,42 @@ class AuthPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(label: Text("Email")),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(label: Text("Password")),
-              ),
-              SizedBox(height: 10),
-              SizedBox(
-                width: double.infinity,
-                // height: 50,
-                child: ElevatedButton(
-                  onPressed: handleSubmit,
-                  child: Text("Submit"),
+        child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(label: Text("Email")),
                 ),
-              ),
-            ],
+                const SizedBox(height: 10),
+                TextField(
+                  obscureText: _isObscure,
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    label: const Text("Password"),
+                    suffixIcon: IconButton(
+                        icon: Icon(_isObscure
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        }),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  // height: 50,
+                  child: ElevatedButton(
+                    onPressed: handleSubmit,
+                    child: const Text("Submit"),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
