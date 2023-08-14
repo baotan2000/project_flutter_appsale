@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
   String _token = '';
@@ -30,6 +31,10 @@ class AuthProvider extends ChangeNotifier {
       _token = responeData['access_token'];
       _expires = responeData['expires_in'];
       notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+
+      final userData = jsonEncode({'token': _token});
+      await prefs.setString('userData', userData);
     } catch (e) {
       print(e);
     }
