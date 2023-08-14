@@ -22,21 +22,16 @@ void main(List<String> args) {
           create: (_) => AuthProvider(),
         ),
       ],
-      child: Consumer<AuthProvider>(
-        builder: (context, auth, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            initialRoute:
-                !auth.isAuth ? AuthPage.routerName : HomePage.routerName,
-            routes: {
-              HomePage.routerName: (context) => HomePage(),
-              CategoryPage.routerName: (context) => CategoryPage(),
-              ProductPage.routerName: (context) => ProductPage(),
-              AuthPage.routerName: (context) => AuthPage(),
-            },
-            // home: MyApp(),
-          );
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: HomePage.routerName,
+        routes: {
+          HomePage.routerName: (context) => HomePage(),
+          CategoryPage.routerName: (context) => CategoryPage(),
+          ProductPage.routerName: (context) => ProductPage(),
+          AuthPage.routerName: (context) => AuthPage(),
         },
+        // home: MyApp(),
       ),
     ),
   );
