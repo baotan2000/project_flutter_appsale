@@ -5,6 +5,7 @@ import 'package:project_appsale/page/home/home.dart';
 import 'package:project_appsale/page/product/widget/product.dart';
 import 'package:project_appsale/providers/auth_provider.dart';
 import 'package:project_appsale/providers/category_provider.dart';
+import 'package:project_appsale/providers/product_provider.dart';
 import 'package:project_appsale/providers/slider_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,9 @@ void main(List<String> args) {
         ),
         ChangeNotifierProvider(
           create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProductProvider(),
         ),
       ],
       child: MaterialApp(

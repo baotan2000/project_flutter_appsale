@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_appsale/providers/product_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart' as intl;
 
 class ListProductSpecial extends StatelessWidget {
   const ListProductSpecial({super.key});
@@ -7,26 +10,43 @@ class ListProductSpecial extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: ListView.separated(
-        itemCount: 50,
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            height: 1,
-          );
-        },
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            leading: Image(
-              image: NetworkImage(
-                  'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80'),
-            ),
-            title: Text(
-              "Iphone 14 PRO MAX",
-              maxLines: 2,
-            ),
-            subtitle: Text("200.000vnd"),
-            trailing: Icon(Icons.shopping_cart),
-          );
+      child: FutureBuilder(
+        future: Provider.of<ProductProvider>(context).getProductSpecial(),
+        initialData: [],
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          var data = snapshot.data! as List;
+          return snapshot.hasData
+              ? ListView.separated(
+                  itemCount: data.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(
+                      height: 1,
+                    );
+                  },
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      leading: Image(
+                        image: NetworkImage('${data[index].image}'),
+                      ),
+                      title: Text(
+                        "${data[index].name}",
+                        maxLines: 2,
+                      ),
+                      subtitle: Text(
+                          intl.NumberFormat.simpleCurrency(locale: 'vi')
+                              .format(data[index].price)),
+                      trailing: Icon(Icons.shopping_cart),
+                    );
+                  },
+                )
+              : Center(
+                  child: Text("Empty Product"),
+                );
         },
       ),
     );
