@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_appsale/providers/cart_provider.dart';
 import 'package:project_appsale/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart' as intl;
@@ -40,7 +41,17 @@ class ListProductSpecial extends StatelessWidget {
                       subtitle: Text(
                           intl.NumberFormat.simpleCurrency(locale: 'vi')
                               .format(data[index].price)),
-                      trailing: Icon(Icons.shopping_cart),
+                      trailing: InkWell(
+                          onTap: () {
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addCart(
+                              data[index].id,
+                              data[index].image,
+                              data[index].name,
+                              data[index].price,
+                            );
+                          },
+                          child: Icon(Icons.shopping_cart)),
                     );
                   },
                 )

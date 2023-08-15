@@ -5,6 +5,7 @@ import 'package:project_appsale/page/category/widget/category.dart';
 import 'package:project_appsale/page/home/home.dart';
 import 'package:project_appsale/page/product/widget/product.dart';
 import 'package:project_appsale/providers/auth_provider.dart';
+import 'package:project_appsale/providers/cart_provider.dart';
 import 'package:project_appsale/providers/category_provider.dart';
 import 'package:project_appsale/providers/product_provider.dart';
 import 'package:project_appsale/providers/slider_provider.dart';
@@ -25,6 +26,9 @@ void main(List<String> args) {
         ),
         ChangeNotifierProvider(
           create: (_) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
         ),
       ],
       child: MaterialApp(
