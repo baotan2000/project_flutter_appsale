@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_appsale/const.dart';
 import 'package:project_appsale/page/auth/auth_page.dart';
+import 'package:project_appsale/page/cart/cart.dart';
 import 'package:project_appsale/page/home/widget/home_category.dart';
 import 'package:project_appsale/page/home/widget/home_slider.dart';
 import 'package:project_appsale/page/home/widget/list_product_special.dart';
@@ -83,6 +84,16 @@ class Home extends StatelessWidget {
       ),
       appBar: AppBar(
         title: Center(child: Text("Home Page")),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, CartPage.routerName);
+                },
+                child: Icon(Icons.shopping_cart)),
+          ),
+        ],
       ),
       body: Column(
         children: [

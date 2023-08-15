@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_appsale/page/auth/auth_page.dart';
+import 'package:project_appsale/page/cart/cart.dart';
 import 'package:project_appsale/page/category/widget/category.dart';
 import 'package:project_appsale/page/home/home.dart';
 import 'package:project_appsale/page/product/widget/product.dart';
@@ -34,6 +35,7 @@ void main(List<String> args) {
           CategoryPage.routerName: (context) => CategoryPage(),
           ProductPage.routerName: (context) => ProductPage(),
           AuthPage.routerName: (context) => AuthPage(),
+          CartPage.routerName: (context) => CartPage(),
         },
         // home: MyApp(),
       ),
