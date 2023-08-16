@@ -6,6 +6,7 @@ import 'package:project_appsale/page/home/widget/home_category.dart';
 import 'package:project_appsale/page/home/widget/home_slider.dart';
 import 'package:project_appsale/page/home/widget/list_product_special.dart';
 import 'package:project_appsale/providers/auth_provider.dart';
+import 'package:project_appsale/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -86,12 +87,19 @@ class Home extends StatelessWidget {
         title: Center(child: Text("Home Page")),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, CartPage.routerName);
-                },
-                child: Icon(Icons.shopping_cart)),
+            padding: EdgeInsets.only(top: 17, right: 10),
+            child: Consumer<CartProvider>(
+              builder: (context, value, child) {
+                return Badge(
+                  label: Text('${value.items.length}'),
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, CartPage.routerName);
+                      },
+                      child: Icon(Icons.shopping_cart)),
+                );
+              },
+            ),
           ),
         ],
       ),

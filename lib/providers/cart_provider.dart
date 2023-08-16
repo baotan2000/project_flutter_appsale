@@ -21,6 +21,31 @@ class CartProvider extends ChangeNotifier {
 
   void addCart(int productId, String image, String name, int price,
       [int quantity = 1]) {
-    print(productId);
+    if (items.containsKey(productId)) {
+      //ton tai san phan
+      items.update(
+        productId,
+        (value) => CartItem(
+          id: value.id,
+          image: value.image,
+          name: value.name,
+          price: value.price,
+          quantity: value.quantity + quantity,
+        ),
+      );
+    } else {
+      //chua ton tai
+      items.putIfAbsent(
+        productId,
+        () => CartItem(
+          id: productId,
+          image: image,
+          name: name,
+          price: price,
+          quantity: quantity,
+        ),
+      );
+    }
+    notifyListeners();
   }
 }
