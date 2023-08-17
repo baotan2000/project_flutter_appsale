@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:project_appsale/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
   static const routerName = '/cart';
@@ -11,7 +12,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cart Page"),
+        title: const Text("Cart Page"),
       ),
       body: Stack(
         children: [
@@ -36,16 +37,30 @@ class CartPage extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 5,
                           child: Row(
                             children: [
-                              InkWell(onTap: () {}, child: Icon(Icons.remove)),
+                              InkWell(
+                                  onTap: () {
+                                    Provider.of<CartProvider>(context,
+                                            listen: false)
+                                        .decrease(
+                                            value.items.keys.toList()[index]);
+                                  },
+                                  child: const Icon(Icons.remove)),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5),
                                 child: Text(
                                   "${dataItems[index].quantity}",
-                                  style: TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
                               ),
-                              InkWell(onTap: () {}, child: Icon(Icons.add))
+                              InkWell(
+                                  onTap: () {
+                                    Provider.of<CartProvider>(context,
+                                            listen: false)
+                                        .increase(
+                                            value.items.keys.toList()[index]);
+                                  },
+                                  child: const Icon(Icons.add))
                             ],
                           ),
                         ),

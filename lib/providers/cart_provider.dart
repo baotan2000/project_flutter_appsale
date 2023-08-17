@@ -48,4 +48,36 @@ class CartProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void increase(int productId, [int quantity = 1]) {
+    items.update(
+      productId,
+      (value) => CartItem(
+        id: value.id,
+        image: value.image,
+        name: value.name,
+        price: value.price,
+        quantity: value.quantity + quantity,
+      ),
+    );
+    notifyListeners();
+  }
+
+  decrease(int productId, [int quantity = 1]) {
+    if (items[productId]?.quantity == quantity) {
+      items.removeWhere((key, value) => key == productId);
+    } else {
+      items.update(
+        productId,
+        (value) => CartItem(
+          id: value.id,
+          image: value.image,
+          name: value.name,
+          price: value.price,
+          quantity: value.quantity - quantity,
+        ),
+      );
+    }
+    notifyListeners();
+  }
 }
