@@ -5,9 +5,48 @@ import 'package:project_appsale/providers/order_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   static const routerName = '/cart';
   const CartPage({super.key});
+
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        CircularProgressIndicator(),
+        Container(margin: EdgeInsets.only(left: 15), child: Text("Loading..."))
+      ],
+    ),
+  );
+
+  void handleAddCart() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return alert;
+      },
+    );
+    Future.delayed(Duration(seconds: 2), (() {
+      Provider.of<OrderProvider>(context, listen: false)
+          .buy(Provider.of<CartProvider>(context, listen: false).items)
+          .then((value) => {
+                if (value)
+                  {
+                    Navigator.pop(context),
+                    Provider.of<CartProvider>(context, listen: false)
+                        .removeItems()
+                  }
+              });
+    }));
+    //show thong bao
+    //call api
+    //remove items
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,12 +119,7 @@ class CartPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 60,
                   child: ElevatedButton(
-                      onPressed: () {
-                        Provider.of<OrderProvider>(context, listen: false).buy(
-                            Provider.of<CartProvider>(context, listen: false)
-                                .items);
-                      },
-                      child: Text("Mua hàng"))))
+                      onPressed: handleAddCart, child: Text("Mua hàng"))))
         ],
       ),
     );
