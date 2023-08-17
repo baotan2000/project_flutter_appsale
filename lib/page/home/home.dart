@@ -9,9 +9,21 @@ import 'package:project_appsale/providers/auth_provider.dart';
 import 'package:project_appsale/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const routerName = '/';
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void didChangeDependencies() {
+    Provider.of<AuthProvider>(context).checkTimeExpires();
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
