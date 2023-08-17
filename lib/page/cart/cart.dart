@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:project_appsale/providers/cart_provider.dart';
+import 'package:project_appsale/providers/order_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -79,7 +80,12 @@ class CartPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 60,
                   child: ElevatedButton(
-                      onPressed: () {}, child: Text("Mua hàng"))))
+                      onPressed: () {
+                        Provider.of<OrderProvider>(context, listen: false).buy(
+                            Provider.of<CartProvider>(context, listen: false)
+                                .items);
+                      },
+                      child: Text("Mua hàng"))))
         ],
       ),
     );
