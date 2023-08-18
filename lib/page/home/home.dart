@@ -86,7 +86,8 @@ class Home extends StatelessWidget {
                         leading: Icon(Icons.library_books),
                         title: Text("Danh sách đơn hàng"),
                         onTap: () {
-                          Navigator.pushNamed(context, ListOrder.routerName);
+                          Navigator.popAndPushNamed(
+                              context, ListOrder.routerName);
                         },
                       ),
                       ListTile(

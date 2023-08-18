@@ -25,4 +25,18 @@ class ProductProvider extends ChangeNotifier {
       );
     }
   }
+
+  Future<Product> getProductById(var id) async {
+    final url = 'http://apiforlearning.zendvn.com/api/mobile/products/$id';
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+      );
+      final jsonData = jsonDecode(response.body);
+      Product product = Product.fromJson(jsonEncode(jsonData));
+      return product;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:project_appsale/models/product_model.dart';
 import 'package:project_appsale/providers/order_provider.dart';
+import 'package:project_appsale/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
 class ListOrder extends StatefulWidget {
@@ -44,8 +46,24 @@ class _ListOrderState extends State<ListOrder> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: dataItem.length,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text("aaaaaa"),
+                            return FutureBuilder(
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                var item = snapshot.data as Product;
+                                return ListTile(
+                                  leading: Image.network(item.image),
+                                  title: Text(item.name),
+                                );
+                              },
+                              future: Provider.of<ProductProvider>(context,
+                                      listen: false)
+                                  .getProductById(
+                                      dataItem[index]['product_id']),
                             );
                           },
                         )
