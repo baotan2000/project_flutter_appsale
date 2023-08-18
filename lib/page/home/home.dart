@@ -5,6 +5,7 @@ import 'package:project_appsale/page/cart/cart.dart';
 import 'package:project_appsale/page/home/widget/home_category.dart';
 import 'package:project_appsale/page/home/widget/home_slider.dart';
 import 'package:project_appsale/page/home/widget/list_product_special.dart';
+import 'package:project_appsale/page/order/list_order.dart';
 import 'package:project_appsale/providers/auth_provider.dart';
 import 'package:project_appsale/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -76,12 +77,21 @@ class Home extends StatelessWidget {
                     children: [
                       ListTile(
                         leading: Icon(Icons.home),
-                        title: Text("Home Page"),
-                        onTap: () {},
+                        title: Text("Trang chủ"),
+                        onTap: () {
+                          Navigator.pushNamed(context, HomePage.routerName);
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.library_books),
+                        title: Text("Danh sách đơn hàng"),
+                        onTap: () {
+                          Navigator.pushNamed(context, ListOrder.routerName);
+                        },
                       ),
                       ListTile(
                         leading: Icon(Icons.logout),
-                        title: Text("Logout"),
+                        title: Text("Đăng xuất"),
                         onTap: () {
                           Provider.of<AuthProvider>(context, listen: false)
                               .logout();
